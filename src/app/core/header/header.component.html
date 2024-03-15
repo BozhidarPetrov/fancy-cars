@@ -1,3 +1,4 @@
+
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <img class="customLogo" src="../../../assets/smallLogo.jpg" routerLink="/"/>
   <button
@@ -12,23 +13,22 @@
     <span class="navbar-toggler-icon"></span>
   </button>
 
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+  <div class="collapse navbar-collapse" id="navbarSupportedContent" 
+>
     <ul class="navbar-nav mr-auto">
-
       <li class="nav-item active">
         <a  class="nav-link" routerLink="/">Home</a>
       </li>
-
       <li class="nav-item active">
-        <a  class="nav-link" routerLink="/user/profile">Profile</a>
+        <a  class="nav-link" routerLink="/user/profile" *ngIf="hasUser">Profile</a>
       </li>
 
       <li class="nav-item active">
-        <a  class="nav-link" routerLink="/user/my-cars">My Cars</a>
+        <a  class="nav-link" routerLink="/user/my-cars" *ngIf="hasUser">My Cars</a>
       </li>
 
       <li class="nav-item active">
-        <a  class="nav-link" routerLink="/cars/add">Add Car</a>
+        <a  class="nav-link" routerLink="/cars/add" *ngIf="hasUser">Add Car</a>
       </li>
 
       <li class="nav-item active">
@@ -39,18 +39,19 @@
         <a  class="nav-link" routerLink="/cars/search">Search</a>
       </li>
 
-      <li class="nav-item active">
+      <li class="nav-item active" *ngIf="!hasUser">
         <a  class="nav-link" routerLink="/user/register">Register</a>
       </li>
 
-      <li class="nav-item active">
+      <li class="nav-item active" *ngIf="!hasUser">
         <a  class="nav-link" routerLink="/user/login">Login</a>
       </li>
 
-      <li class="nav-item active">
+      <li class="nav-item active" *ngIf="hasUser">
         <a  class="nav-link" (click)="logout()">Logout</a>
       </li>
 
     </ul>
   </div>
 </nav>
+

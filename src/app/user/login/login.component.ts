@@ -1,6 +1,11 @@
 import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { emailValidator } from '../user-validators';
+import { UserService } from '../user.service';
+import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
+import { CookieManagerService } from '../../cookie-manager.service';
+
 
 @Component({
   selector: 'app-login',
@@ -8,22 +13,31 @@ import { emailValidator } from '../user-validators';
   styleUrl: './login.component.css',
 })
 export class LoginComponent {
-
   emailValidatorFn = emailValidator;
 
-
+  constructor(
+    private userService: UserService,
+    private router: Router,
+    private cookieService: CookieService,
+    private cookieManager: CookieManagerService
+  ) {}
 
   onLoginSubmitHandler(form: NgForm): void {
-
     const email = form.value.email.trim();
+    const password = form.value.password.trim();
 
     if (form.invalid || !this.emailValidatorFn(email)) {
       return;
     }
 
-    console.log(form.value);
-    form.reset();
-
+    this.userService.login(email, password).subscribe((user) => {
+      const token = this.userService.user?.accessToken;
+      if (token) {
+        this.cookieService.set('authToken', token);
+       this.cookieManager.setCookiesState(token)
+      }
+console.log(user)
+      this.router.navigate(['/']);
+    });
   }
-
 }
