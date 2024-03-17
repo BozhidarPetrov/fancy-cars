@@ -1,5 +1,5 @@
 <h1>ADD NEW CAR FORM</h1>
-
+<div>{{owner | json}}</div>
 <form #form="ngForm" (ngSubmit)="onAddNewCarSubmitHandler(form)">
   <div class="form-group">
     <label for="exampleInputBrand">Brand</label>
@@ -86,7 +86,7 @@
       class="form-control"
       id="exampleInputPower"
       aria-describedby="powerHelp"
-      name="power"
+      name="horsepower"
       placeholder="Horsepower"
       required
       min="1"
@@ -159,7 +159,7 @@
   <div class="form-group">
     <label for="exampleInputYear">Year</label>
     <input
-      type="number"
+      type="string"
       class="form-control"
       id="exampleInputYearHelp"
       name="year"
@@ -181,12 +181,12 @@
   </div>
 
   <div class="form-group">
-    <label for="exampleInputImageUrl">Year</label>
+    <label for="exampleInputImageUrl">Image URL</label>
     <input
-      type="imageUrl"
+      type="string"
       class="form-control"
       id="exampleInputimageUrlHelp"
-      name="imageUrl"
+      name="image"
       placeholder="Image URL"
       required
       ngModel

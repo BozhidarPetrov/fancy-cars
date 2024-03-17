@@ -7,6 +7,7 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class CookieManagerService {
   private isLoggedInSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+
   isLoggedIn$ = this.isLoggedInSubject.asObservable();
 
 
@@ -17,6 +18,7 @@ export class CookieManagerService {
   getCookiesState(){
    const token = this.cookieService.get('authToken')
    return token ? this.isLoggedInSubject.next(true) : this.isLoggedInSubject.next(false)
+
   }
   setCookiesState(token: string){
      this.cookieService.set('authToken', token);

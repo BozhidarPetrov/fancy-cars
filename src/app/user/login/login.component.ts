@@ -35,8 +35,12 @@ export class LoginComponent {
       if (token) {
         this.cookieService.set('authToken', token);
        this.cookieManager.setCookiesState(token)
+      
+
+       
+       console.log('After login - beh.subj. is', this.cookieManager.isLoggedIn$);
+       
       }
-console.log(user)
       this.router.navigate(['/']);
     });
   }

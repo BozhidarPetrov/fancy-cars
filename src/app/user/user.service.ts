@@ -16,7 +16,6 @@ export class UserService implements OnDestroy{
 
   user: RegisteredUser | undefined;
 
-
   get isLogged(): boolean {
     return !!this.user;
   }

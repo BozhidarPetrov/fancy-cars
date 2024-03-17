@@ -18,17 +18,19 @@ const routes: Routes = [
       { path: 'login', component: LoginComponent },
       { path: 'register', component: RegisterComponent },
       { path: 'profile', component: ProfileComponent },
-      { path: 'my-cars', component: MyCarsComponent }
+      { path: 'my-cars', component: MyCarsComponent },
     ],
   },
-  {path: 'cars',
-children: [
-  {path: 'all', component: AllCarsComponent},
-  {path: 'add', component: AddNewComponent},
-  {path: 'search', component: SearchComponent}
-]},
-{path: '404', component: NotFoundComponent},
-{path: '**', pathMatch: 'full', redirectTo:'/404'}
+  {
+    path: 'cars',
+    children: [
+      { path: 'all', component: AllCarsComponent },
+      { path: 'add', component: AddNewComponent },
+      { path: 'search', component: SearchComponent },
+    ],
+  },
+  { path: '404', component: NotFoundComponent },
+  { path: '**', pathMatch: 'full', redirectTo: '/404' },
 ];
 
 @NgModule({

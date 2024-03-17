@@ -4,8 +4,8 @@ import { emailValidator } from '../user-validators';
 import { passwordValidator } from '../user-validators';
 import { UserService } from '../user.service';
 import { Router } from '@angular/router';
-import { first, map } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
+import { CookieManagerService } from '../../cookie-manager.service';
 
 @Component({
   selector: 'app-register',
@@ -19,7 +19,8 @@ export class RegisterComponent {
   constructor(
     private userService: UserService,
     private router: Router,
-    private cookieService: CookieService
+    private cookieService: CookieService,
+    private cookieManager: CookieManagerService
   ) {}
 
   onRegisterSubmitHandler(form: NgForm): void {
@@ -36,10 +37,14 @@ export class RegisterComponent {
 
     this.userService
       .register(username, email, password, rePassword)
-      .subscribe(() => {
+      .subscribe((user) => {
         const token = this.userService.user?.accessToken;
         if (token) {
           this.cookieService.set('authToken', token);
+          this.cookieManager.setCookiesState(token)
+       
+          
+          
         }
 
         this.router.navigate(['/']);

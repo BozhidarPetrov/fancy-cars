@@ -4,6 +4,7 @@ import { CookieManagerService } from './cookie-manager.service';
 import { Subscription } from 'rxjs';
 import { UserService } from './user/user.service';
 import { RegisteredUser } from './types/registeredUser';
+import { OnSameUrlNavigation } from '@angular/router';
 
 
 @Component({
@@ -11,8 +12,8 @@ import { RegisteredUser } from './types/registeredUser';
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
-export class AppComponent implements OnInit{
- isLoggedIn:boolean = false;
+export class AppComponent implements OnInit, OnDestroy{
+ isLoggedIn:boolean | undefined;
  userInfo:RegisteredUser | undefined;
  id:any
  private subscription: Subscription | undefined;
@@ -21,14 +22,22 @@ export class AppComponent implements OnInit{
     
   }  
   
-  ngOnInit() {
+  ngOnInit(): void {
+    
+    
+
+    console.log('before init', this.isLoggedIn);
+   
     this.subscription = this.cookieManager.isLoggedIn$.subscribe(boolean=> {this.isLoggedIn = boolean});
-    this.subscription = this.userService.user$.subscribe(user=> {this.userInfo = user, this.id = user?._id}
-      )
+      this.subscription = this.userService.user$.subscribe(user=> {this.userInfo = user, this.id = user?._id})
+
+    console.log('after init', this.isLoggedIn);
+
   }
+
   
 ngOnDestroy(): void {
-  this.subscription?.unsubscribe()
+ this.subscription?.unsubscribe()
 }
 
 
